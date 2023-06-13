@@ -31,7 +31,7 @@ class student {
 		if (!goodProgress) {
 			points--;
 		}
-		if (!goodBehaviour){
+		if (!goodBehaviour) {
 			points--;
 		}
 		return points;
@@ -54,11 +54,22 @@ class student {
 			}
 		}
 	}
+
 public:
+	void display() {
+		std::cout << "age: " << age << std::endl;
+		std::cout << "level: " << level << std::endl;
+		std::cout << "mathGrade: " << mathGrade << std::endl;
+		std::cout << "englishGrade: " << englishGrade << std::endl;
+		std::cout << "absentes: " << absentes << std::endl;
+		std::cout << "goodProgress: " << goodProgress << std::endl;
+		std::cout << "goodBehaviour: " << goodBehaviour << std::endl;
+	}
+
 	student() {
 		std::cerr << "Error! Fill all stats" << std::endl;
 	}
-	student(int age,int level,int mathGrade, int englishGrade,int absentes, bool goodProgress, bool goodBehaviour) {
+	student(int age, int level, int mathGrade, int englishGrade, int absentes, bool goodProgress, bool goodBehaviour) {
 		if (age >= 0 && 0 <= level <= 4 && 0 <= mathGrade <= 10 && 0 <= englishGrade <= 10 && absentes >= 0)
 		{
 			this->age = age;
@@ -71,11 +82,33 @@ public:
 			opinion(check());
 		}
 	}
+	student(const student& obj) {
+		this->age = obj.age;
+		this->level = obj.level;
+		this->mathGrade = obj.mathGrade;
+		this->englishGrade = obj.englishGrade;
+		this->absentes = obj.absentes;
+		this->goodProgress = obj.goodProgress;
+		this->goodBehaviour = obj.goodBehaviour;
+	}
+	student& operator = (const student& obj) {
+		if (this != &obj)
+		{
+			this->age = obj.age;
+			this->level = obj.level;
+			this->mathGrade = obj.mathGrade;
+			this->englishGrade = obj.englishGrade;
+			this->absentes = obj.absentes;
+			this->goodProgress = obj.goodProgress;
+			this->goodBehaviour = obj.goodBehaviour;
+		}
+		return *this;
+	}
 };
 
 int main() {
-	int age,level,mathGrade,englishGrade,absentes;
-	bool goodProgress,goodBehaviour;
+	int age, level, mathGrade, englishGrade, absentes;
+	bool goodProgress, goodBehaviour;
 	std::cout << "Your age: ";
 	std::cin >> age;
 	std::cout << "Your level (0-4): ";
@@ -92,4 +125,10 @@ int main() {
 	std::cin >> goodBehaviour;
 
 	student form(age, level, mathGrade, englishGrade, absentes, goodProgress, goodBehaviour);
+
+	student form1(form);
+
+	form1.display();
+	student form2 = form;
+	form2.display();
 }
